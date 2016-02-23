@@ -27,6 +27,9 @@ node_js:
   - "4.2.6"
   - "0.12"
 
+services:
+    - mongodb #mongo 2.4
+    
 sudo: false
 
 # Descargar contenido estátco

@@ -18,10 +18,19 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-module.exports={
-    url:'mongodb://localhost:27017/',
-    dbName: 'transparente'
-    
-    
-    
-}
+module.exports = {
+	url: 'mongodb://localhost:27017/',
+	dbName: 'transparente',
+	jsonFiles: [
+		'claustro',
+		'estudiantes',
+		'gobierno',
+		'index',
+		'infoEconomica',
+		'infoInstitucional',
+		'normativaLegal',
+		'ofertaDemanda',
+		'personal',
+		'rendimiento'
+	]
+};

@@ -22,18 +22,24 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 var express = require('express');
 var app = express();
+var assert = require('assert');
 
 var serverConfig = require('./app/serverConfig'); //creates server
 var routes = require('./app/routes');
+var dbHandler = require('./app/dbhandler');
 
 //will set server configuration
 serverConfig(app);
 //will set all routes
 routes(app);
+var server = null;
 
-// Creación del servidor
-server = app.listen(app.get('port'), app.get('ip'), function() {
-	console.log('Express server listening on ' + app.get('ip') + ':' + app.get('port'));
+dbHandler.initDatabase(function(err) {
+	assert(err === null, "Database Init problem");
+	// Creación del servidor
+	server = app.listen(app.get('port'), app.get('ip'), function() {
+		console.log('Express server listening on ' + app.get('ip') + ':' + app.get('port'));
+	});
 });
 
 module.exports = server;

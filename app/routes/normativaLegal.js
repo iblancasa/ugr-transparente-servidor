@@ -23,15 +23,21 @@
 
 //Variable para las configuraciones
 var config = require('../../config/config');
+var dbHandler = require('../dbhandler');
 
 // Gestión de la pagina de normativas
 exports.normativaLegal = function(req, res) {
-	var normativa = config.normativaLegal;
+	dbHandler.getCollection("normativaLegal", function(err, data) {
+		if (err) res.status(500).json(err);
+		else {
+			var normativa = data[0];
 
-	res.render(normativa.plantilla, {
-		servidor: config.servidor,
-		seccion: normativa.nombre,
-		contenido: normativa.contenido,
-		datos: normativa.datos
+			res.render(normativa.plantilla, {
+				servidor: config.servidor,
+				seccion: normativa.nombre,
+				contenido: normativa.contenido,
+				datos: normativa.datos
+			});
+		}
 	});
 };

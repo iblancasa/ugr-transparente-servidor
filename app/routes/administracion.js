@@ -23,28 +23,39 @@
 
 //Variable para las configuraciones
 var config = require('../../config/config');
+var dbHandler = require('../dbhandler');
 
 // Gestión de la pagina de personal
 exports.personal = function(req, res) {
-	var personal = config.personal;
+	dbHandler.getCollection("personal", function(err, data) {
+		if (err) res.status(500).json(err);
+		else {
+			var personal = data[0];
 
-	res.render(personal.plantilla, {
-		servidor: config.servidor,
-		seccion: personal.nombre,
-		contenido: personal.contenido,
-		datos: personal.datos
+			res.render(personal.plantilla, {
+				servidor: config.servidor,
+				seccion: personal.nombre,
+				contenido: personal.contenido,
+				datos: personal.datos
+			});
+		}
 	});
 };
 
 // Gestión de la pagina de informacion economica
 exports.infoEconomica = function(req, res) {
-	var infoEconomica = config.infoEconomica;
+	dbHandler.getCollection("infoEconomica", function(err, data) {
+		if (err) res.status(500).json(err);
+		else {
+			var infoEconomica = data[0];
 
-	res.render(infoEconomica.plantilla, {
-		servidor: config.servidor,
-		seccion: infoEconomica.nombre,
-		contenido: infoEconomica.contenido,
-		datos: infoEconomica.datos
+			res.render(infoEconomica.plantilla, {
+				servidor: config.servidor,
+				seccion: infoEconomica.nombre,
+				contenido: infoEconomica.contenido,
+				datos: infoEconomica.datos
+			});
+		}
 	});
 };
 

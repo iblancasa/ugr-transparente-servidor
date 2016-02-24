@@ -23,39 +23,55 @@
 
 //Variable para las configuraciones
 var config = require('../../config/config');
+var dbHandler = require('../dbhandler');
 
 // Gestión de la pagina de oferta y demanda academica
 exports.ofertaDemanda = function(req, res) {
-	var ofertaDemanda = config.ofertaDemanda;
+	dbHandler.getCollection("ofertaDemanada", function(err, data) {
+		if (err) res.status(500).json(err);
+		else {
+			var ofertaDemanda = data[0];
 
-	res.render(ofertaDemanda.plantilla, {
-		servidor: config.servidor,
-		seccion: ofertaDemanda.nombre,
-		contenido: ofertaDemanda.contenido,
-		datos: ofertaDemanda.datos
+			res.render(ofertaDemanda.plantilla, {
+				servidor: config.servidor,
+				seccion: ofertaDemanda.nombre,
+				contenido: ofertaDemanda.contenido,
+				datos: ofertaDemanda.datos
+			});
+		}
 	});
 };
 
 // Gestión de la pagina de claustro
 exports.claustro = function(req, res) {
-	var claustro = config.claustro;
+	dbHandler.getCollection("claustro", function(err, data) {
+		if (err) res.status(500).json(err);
+		else {
+			var claustro = data[0];
 
-	res.render(claustro.plantilla, {
-		servidor: config.servidor,
-		seccion: claustro.nombre,
-		contenido: claustro.contenido,
-		datos: claustro.datos
+			res.render(claustro.plantilla, {
+				servidor: config.servidor,
+				seccion: claustro.nombre,
+				contenido: claustro.contenido,
+				datos: claustro.datos
+			});
+		}
 	});
 };
 
 // Gestión de la pagina de estudiantes
 exports.estudiantes = function(req, res) {
-	var estudiantes = config.estudiantes;
+	dbHandler.getCollection("estudiantes", function(err, data) {
+		if (err) res.status(500).json(err);
+		else {
+			var estudiantes = data[0];
 
-	res.render(estudiantes.plantilla, {
-		servidor: config.servidor,
-		seccion: estudiantes.nombre,
-		contenido: estudiantes.contenido,
-		datos: estudiantes.datos
+			res.render(estudiantes.plantilla, {
+				servidor: config.servidor,
+				seccion: estudiantes.nombre,
+				contenido: estudiantes.contenido,
+				datos: estudiantes.datos
+			});
+		}
 	});
 };

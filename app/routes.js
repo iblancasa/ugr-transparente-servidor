@@ -36,8 +36,6 @@ var calendarioSolo = require('./routes/calendarioSolo');
 var dbHandler = require('./dbhandler');
 var config = require('../config/config');
 
-var cargar = require('../lib/cargar');
-
 var sendCollection = function(res, collection) {
 	dbHandler.getCollection(collection, function(err, data) {
 		if (err) res.status(500).json(err);

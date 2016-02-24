@@ -23,27 +23,38 @@
 
 //Variable para las configuraciones
 var config = require('../../config/config');
+var dbHandler = require('../dbhandler');
 
 // Gestión de la pagina del gobierno
 exports.gobierno = function(req, res) {
-	var gobierno = config.gobierno;
+	dbHandler.getCollection("gobierno", function(err, data) {
+		if (err) res.status(500).json(err);
+		else {
+			var gobierno = data[0];
 
-	res.render(gobierno.plantilla, {
-		servidor: config.servidor,
-		seccion: gobierno.nombre,
-		contenido: gobierno.contenido,
-		datos: gobierno.datos
+			res.render(gobierno.plantilla, {
+				servidor: config.servidor,
+				seccion: gobierno.nombre,
+				contenido: gobierno.contenido,
+				datos: gobierno.datos
+			});
+		}
 	});
 };
 
 // Gestión de la pagina de resultados
 exports.rendimiento = function(req, res) {
-	var rendimiento = config.rendimiento;
+	dbHandler.getCollection("rendimiento", function(err, data) {
+		if (err) res.status(500).json(err);
+		else {
+			var rendimiento = data[0];
 
-	res.render(rendimiento.plantilla, {
-		servidor: config.servidor,
-		seccion: rendimiento.nombre,
-		contenido: rendimiento.contenido,
-		datos: rendimiento.datos
+			res.render(rendimiento.plantilla, {
+				servidor: config.servidor,
+				seccion: rendimiento.nombre,
+				contenido: rendimiento.contenido,
+				datos: rendimiento.datos
+			});
+		}
 	});
 };

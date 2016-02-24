@@ -23,14 +23,19 @@
 
 //Variable para las configuraciones
 var config = require('../../config/config');
+var dbHandler = require('../dbhandler');
 
 // Gestión de la pagina de la información institucional
-
 exports.infoInstitucional = function(req, res) {
-	var pres = config.infoInstitucional;
+	dbHandler.getCollection("infoInstitucional", function(err, data) {
+		if (err) res.status(500).json(err);
+		else {
+			var pres = data[0];
 
-	res.render(pres.plantilla, {
-		seccion: pres.titulo,
-		texto: pres.texto
+			res.render(pres.plantilla, {
+				seccion: pres.titulo,
+				texto: pres.texto
+			});
+		}
 	});
 };

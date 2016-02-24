@@ -30,8 +30,8 @@ describe('Archivos de configuración', function() {
 		var existe = require('../lib/existe');
 		var cargar = require('../lib/cargar');
 		_.each(config.archivosJSON, function(valor) {
-			assert.ok(existe('./config/' + valor));
-			var file = cargar('./config/' + valor);
+			assert.ok(existe('./config/jsons/' + valor));
+			var file = cargar('./config/jsons/' + valor);
 			assert.ok(file);
 		});
 

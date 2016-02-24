@@ -33,8 +33,18 @@ var buscador = require('./routes/buscador');
 var calendario = require('./routes/calendario');
 var calendarioSolo = require('./routes/calendarioSolo');
 
-var cargar = require('../lib/cargar');
+var dbHandler = require('./dbhandler');
 var config = require('../config/config');
+
+var cargar = require('../lib/cargar');
+
+var sendCollection = function(res, collection) {
+	dbHandler.getCollection(collection, function(err, data) {
+		if (err) res.status(500).json(err);
+		if (data.length === 0) res.status(404).json(data);
+		else res.json(data);
+	});
+};
 
 
 //Generate all the routes
@@ -69,28 +79,28 @@ module.exports = function(app) {
 
 	// Archivos de datos
 	app.get('/archivos/personal', function(req, res) {
-		res.send(cargar('./config/personal.json'));
+		sendCollection(res, "personal");
 	});
 	app.get('/archivos/infoEconomica', function(req, res) {
-		res.send(cargar('./config/infoEconomica.json'));
+		sendCollection(res, "infoEconomica");
 	});
 	app.get('/archivos/ofertaDemanda', function(req, res) {
-		res.send(cargar('./config/ofertaDemanda.json'));
+		sendCollection(res, "ofertaDemanda");
 	});
 	app.get('/archivos/claustro', function(req, res) {
-		res.send(cargar('./config/claustro.json'));
+		sendCollection(res, "claustro");
 	});
 	app.get('/archivos/estudiantes', function(req, res) {
-		res.send(cargar('./config/estudiantes.json'));
+		sendCollection(res, "estudiantes");
 	});
 	app.get('/archivos/gobierno', function(req, res) {
-		res.send(cargar('./config/gobierno.json'));
+		sendCollection(res, "gobierno");
 	});
 	app.get('/archivos/rendimiento', function(req, res) {
-		res.send(cargar('./config/rendimiento.json'));
+		sendCollection(res, "rendimiento");
 	});
 	app.get('/archivos/normativaLegal', function(req, res) {
-		res.send(cargar('./config/normativaLegal.json'));
+		sendCollection(res, "normativaLegal");
 	});
 	// Manejador de errores:
 	app.use(function(req, res, next) {

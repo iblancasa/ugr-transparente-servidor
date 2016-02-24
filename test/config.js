@@ -1,5 +1,5 @@
 var express = require('express');
-
+var dbHandler=require('../app/dbhandler');
 
 module.exports = {
 	archivosJSON: [
@@ -62,11 +62,11 @@ module.exports = {
 		var routes = require('../app/routes');
 		serverConfig(app);
 		routes(app);
-
-		server = app.listen(app.get('port'), app.get('ip'), function() {
-			done(app, server);
+		dbHandler.initDatabase(function(err) {
+			if(err) console.log("Database Init problem");
+			server = app.listen(app.get('port'), app.get('ip'), function() {
+				done(app, server);
+			});
 		});
-
-
 	}
 };

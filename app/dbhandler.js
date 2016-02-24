@@ -50,7 +50,7 @@ module.exports = {
 		var col = db.collection(collection);
 		col.insertMany(documents, done);
 	},
-	getAll: function(collection, done) {
+	getCollection: function(collection, done) {
 		var col = db.collection(collection);
 		col.find({}).toArray(done);
 	},

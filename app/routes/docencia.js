@@ -27,7 +27,7 @@ var dbHandler = require('../dbhandler');
 
 // Gestión de la pagina de oferta y demanda academica
 exports.ofertaDemanda = function(req, res) {
-	dbHandler.getCollection("ofertaDemanada", function(err, data) {
+	dbHandler.getCollection("ofertaDemanda", function(err, data) {
 		if (err) res.status(500).json(err);
 		else {
 			var ofertaDemanda = data[0];
